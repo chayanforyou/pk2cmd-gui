@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: io.github.chayanforyou.Main
+Created-By: Chayan Mistry (chayanmistrry@gmail.com)
+Implementation-Version: 1.0
+Built-By: Chayan Mistry
