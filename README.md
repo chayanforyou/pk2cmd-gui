@@ -1,4 +1,4 @@
-## PicKit2-GUI-Linux
+## PicKit2 GUI Linux
 Simple graphical user interface for pk2cmd on Linux.
 
 ![](/doc/PicKit2-GUI-Linux.png)
@@ -25,6 +25,27 @@ No warranty will be made for this software. Use it at your own risks!
 This software is free.
 This software uses a recompiled version of `pk2cmd` from Microchip and a custom `PK2DeviceFile.dat` from the Microchip's forums.
 
-### Developer
-- Chayan Mistry
-- chayanmistrry@gmail.com
+### Thanks To
+- François Gilbert
+- Twitter : @frankynov
+
+### Contact
+If you have any questions, suggestions, or feedback, feel free to contact.
+
+chayanmistrry@gmail.com
+
+### License
+PicKit2 GUI Linux is released under the [MIT License](LICENSE).
+
+```dtd
+Copyright (c) 2023 Chayan Mistry
+All rights reserved.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
