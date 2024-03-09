@@ -1,19 +1,15 @@
-package io.github.chayanforyou;
-
-import java.awt.Cursor;
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import javax.swing.SwingWorker;
-
-import static io.github.chayanforyou.MainWindow.*;
 
 public class Operations extends SwingWorker<Integer, Integer> {
 
     private static final int VALUE_ERROR = 111;
 
     public Integer doInBackground() throws Exception {
-        progressBar.setIndeterminate(true);
-        container.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        MainWindow.progressBar.setIndeterminate(true);
+        MainWindow.container.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         ProcessBuilder pb = new ProcessBuilder(MainWindow.command);
         pb.redirectErrorStream(true);
         Process p = pb.start();
@@ -30,32 +26,32 @@ public class Operations extends SwingWorker<Integer, Integer> {
                 progressValue = Integer.parseInt(progressString);
             } catch (Exception e) {
                 progressValue = VALUE_ERROR;
-                logArea.append(lineRead + "\n");
-                logArea.setCaretPosition(logArea.getDocument().getLength());
+                MainWindow.logArea.append(lineRead + "\n");
+                MainWindow.logArea.setCaretPosition(MainWindow.logArea.getDocument().getLength());
             }
 
             if (progressValue >= 0 && progressValue <= 100) {
-                progressBar.setIndeterminate(false);
-                progressBar.setValue(progressValue);
+                MainWindow.progressBar.setIndeterminate(false);
+                MainWindow.progressBar.setValue(progressValue);
             } else if (progressValue != VALUE_ERROR) {
-                logArea.append(lineRead + "\n");
-                logArea.setCaretPosition(logArea.getDocument().getLength());
+                MainWindow.logArea.append(lineRead + "\n");
+                MainWindow.logArea.setCaretPosition(MainWindow.logArea.getDocument().getLength());
             }
 
             if (progressValue == 2) {
                 if (MainWindow.buttonPressed == MainWindow.buttonTest) {
-                    progressBar.setValue(0);
+                    MainWindow.progressBar.setValue(0);
                 } else {
-                    progressBar.setValue(0);
-                    logArea.append(lineRead + "\n");
-                    logArea.setCaretPosition(logArea.getDocument().getLength());
+                    MainWindow.progressBar.setValue(0);
+                    MainWindow.logArea.append(lineRead + "\n");
+                    MainWindow.logArea.setCaretPosition(MainWindow.logArea.getDocument().getLength());
                 }
             }
         }
 
-        progressBar.setIndeterminate(false);
-        container.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        buttonPressed.setEnabled(true);
+        MainWindow.progressBar.setIndeterminate(false);
+        MainWindow.container.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        MainWindow.buttonPressed.setEnabled(true);
         return null;
     }
 }
