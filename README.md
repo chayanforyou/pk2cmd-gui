@@ -1,7 +1,7 @@
 ## PicKit2 GUI Linux
 Simple graphical user interface for pk2cmd on Linux.
 
-![](/doc/PicKit2-GUI-Linux.png)
+![](/doc/pk2cmd-gui.png)
 
 ### Features
 - Auto-detection of the PIC on your board.

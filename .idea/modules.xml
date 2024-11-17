@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PicKit2-GUI-Linux.iml" filepath="$PROJECT_DIR$/PicKit2-GUI-Linux.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pk2cmd-gui.iml" filepath="$PROJECT_DIR$/pk2cmd-gui.iml" />
     </modules>
   </component>
 </project>

@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="PicKit2-GUI-Linux:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/PicKit2_GUI_Linux_jar</output-path>
-    <root id="archive" name="PicKit2-GUI-Linux.jar">
-      <element id="module-output" name="PicKit2-GUI-Linux" />
-    </root>
-  </artifact>
-</component>
