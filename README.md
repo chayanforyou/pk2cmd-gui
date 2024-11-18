@@ -1,5 +1,5 @@
-## PicKit2 GUI Linux
-Simple graphical user interface for pk2cmd on Linux.
+## PK2CMD GUI
+Simple graphical user interface for pk2cmd on Linux, Mac and Windows.
 
 ![](/doc/pk2cmd-gui.png)
 
@@ -16,10 +16,20 @@ Simple graphical user interface for pk2cmd on Linux.
 - Some freezes can be seen during process. Don't panic, the PicKit is working and you'll see the output in the logs.
 
 ### Installation
-- Download the latest version from [here](https://github.com/chayanforyou/PicKit2-GUI-Linux/releases/latest) and `unzip` the file.
-- Install **libusb** driver, open terminal and type `sudo apt-get install libusb-0.1-4:i386`
-- Run the software, `java -jar PicKit2-Programmer-1.0.jar`
-- Enter your root password and you're done.
+
+#### Linux
+- Install **libusb** driver, open terminal and type `sudo apt-get install libusb-0.1-4`
+- Make the script executable, `chmod +x setup_pk2cmd.sh`
+- Run the script, `./setup_pk2cmd.sh`
+
+#### Mac
+- Install **libusb** driver, open terminal and type `brew install libusb`
+- Make the script executable, `chmod +x setup_pk2cmd.sh`
+- Run the script, `./setup_pk2cmd.sh`
+
+#### Windows
+- Install **libusb** driver, download from here [libusb-win32](https://github.com/mcuee/libusb-win32)
+- Run the script, `setup_pk2cmd.bat`
 
 ### Disclaimer
 No warranty will be made for this software. Use it at your own risks!
