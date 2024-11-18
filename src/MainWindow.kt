@@ -10,25 +10,28 @@ import javax.swing.plaf.basic.BasicProgressBarUI
 import javax.swing.text.DefaultCaret
 import kotlin.system.exitProcess
 
-class MainWindow : JFrame("PicKit2 v$appVersion - By Chayan Mistry") {
+class MainWindow : JFrame("PicKit2 v$appVersion - $osName") {
 
     companion object {
         lateinit var container: Container
         var buttonPressed: JButton? = null
         val command = arrayOfNulls<String>(3)
+
         val logArea = JTextArea("Welcome to Pickit2 Programmer!\nPlease wait while checking your connected PIC...\n").apply {
             isEditable = false
         }
+
         val buttonTest = JButton("Test HEX").apply {
             toolTipText = "Check .hex integrity on PIC"
             isEnabled = false
         }
+
         val progressBar = JProgressBar().apply {
             isStringPainted = true
             background = Color(230, 230, 230)
             foreground = Color(120, 230, 90)
             border = BorderFactory.createLineBorder(Color.GRAY)
-            ui = object : BasicProgressBarUI() {
+            setUI(object : BasicProgressBarUI() {
                 override fun getSelectionBackground(): Color {
                     return Color.DARK_GRAY
                 }
@@ -36,7 +39,7 @@ class MainWindow : JFrame("PicKit2 v$appVersion - By Chayan Mistry") {
                 override fun getSelectionForeground(): Color {
                     return Color.DARK_GRAY
                 }
-            }
+            })
         }
 
         private val appVersion: String?
@@ -51,6 +54,17 @@ class MainWindow : JFrame("PicKit2 v$appVersion - By Chayan Mistry") {
                     e.printStackTrace()
                 }
                 return null
+            }
+
+        private val osName: String
+            get() {
+                val osName = System.getProperty("os.name").lowercase()
+                return when {
+                    "win" in osName -> "Windows"
+                    "mac" in osName -> "MacOS"
+                    "nix" in osName || "nux" in osName || "aix" in osName -> "Linux"
+                    else -> "Unknown OS"
+                }
             }
     }
 
@@ -78,22 +92,21 @@ class MainWindow : JFrame("PicKit2 v$appVersion - By Chayan Mistry") {
         caret.updatePolicy = DefaultCaret.ALWAYS_UPDATE
     }
 
-    private val labelContact = JLabel("Reach me out :)").apply {
-        foreground = Color.BLUE
-        cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)
-        toolTipText = "Click there reach me :)"
-        addMouseListener(object : MouseAdapter() {
-            override fun mouseReleased(event: MouseEvent) {
-                val desktop = Desktop.getDesktop()
-                try {
-                    val uri = URI("https://github.com/chayanforyou")
-                    desktop.browse(uri)
-                } catch (e: Exception) {
-                    System.err.println(e.message)
+    private val labelContact = JLabel("<html>&nbsp;&nbsp;Made with <span style='color:red;'>&#10084;</span> by Chayan</html>").apply {
+            cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)
+            toolTipText = "Visit my profile"
+            addMouseListener(object : MouseAdapter() {
+                override fun mouseReleased(event: MouseEvent) {
+                    val desktop = Desktop.getDesktop()
+                    try {
+                        val uri = URI("https://github.com/chayanforyou")
+                        desktop.browse(uri)
+                    } catch (e: Exception) {
+                        System.err.println(e.message)
+                    }
                 }
-            }
-        })
-    }
+            })
+        }
 
     private val windowListener = object : WindowAdapter() {
         override fun windowClosing(event: WindowEvent) {
