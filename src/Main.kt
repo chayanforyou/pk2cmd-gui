@@ -17,34 +17,46 @@ object Main {
         println("Launching PicKit2 Programmer")
         println("Checking required files... ")
 
-        val pk2cmdPath = System.getenv("PK2CMD_PATH") ?: "/usr/local/bin"
-
-        if (checkRequiredFiles(pk2cmdPath)) {
+        val isWindowsOs = System.getProperty("os.name").contains("win", ignoreCase = true)
+        if (checkRequiredFiles(isWindowsOs)) {
             println("Files seem to be in place! The installation was correct.")
             MainWindow()
         } else {
             println("Error: file(s) missing")
-            showErrorDialog()
+            showErrorDialog(isWindowsOs)
             exitProcess(1)
         }
     }
 
-    private fun checkRequiredFiles(path: String): Boolean {
-        val filePK2CMD = File("$path/pk2cmd")
-        val filePK2DeviceFile = File("$path/PK2DeviceFile.dat")
+    private fun checkRequiredFiles(isWindows: Boolean): Boolean {
+        val pk2cmdPath = if (isWindows) "C:\\PICkit_2" else "/usr/local/bin"
+        val pk2cmdFileName = if (isWindows) "pk2cmd.exe" else "pk2cmd"
+
+        val filePK2CMD = File("$pk2cmdPath/$pk2cmdFileName")
+        val filePK2DeviceFile = File("$pk2cmdPath/PK2DeviceFile.dat")
         return filePK2CMD.exists() && filePK2DeviceFile.exists()
     }
 
-    private fun showErrorDialog() {
+    private fun showErrorDialog(isWindows: Boolean) {
         val panelBG = UIManager.get("Panel.background") as Color
 
-        val editorPane = JEditorPane().apply {
-            contentType = "text/html"
-            isEditable = false
-            highlighter = null
-            background = panelBG
+        val textWinOs = """
+            <html>
+            <body style='font-family:sans-serif;'>
+                <p>No pk2cmd command was found or correctly installed!</p>
+                <p>Please, copy the <code>pk2cmd.exe</code> and <code>PK2DeviceFile.dat</code> files
+                to <code>C:\PICkit_2 manually or by executing the script.</p>
+                
+                <p>Double click to run the script:<br>
+                <span style='color:blue;'>setup_pk2cmd.bat</span></p>
+                
+                <p>More information can be found in the README file.<br>
+                This program will now close.</p>
+            </body>
+            </html>
+        """.trimIndent()
 
-            text = """
+        val textUnix = """
             <html>
             <body style='font-family:sans-serif;'>
                 <p>No pk2cmd command was found or correctly installed!</p>
@@ -62,6 +74,13 @@ object Main {
             </body>
             </html>
         """.trimIndent()
+
+        val editorPane = JEditorPane().apply {
+            contentType = "text/html"
+            isEditable = false
+            highlighter = null
+            background = panelBG
+            text = if (isWindows) textWinOs else textUnix
 
             addHyperlinkListener { event ->
                 if (event.eventType == HyperlinkEvent.EventType.ACTIVATED) {
