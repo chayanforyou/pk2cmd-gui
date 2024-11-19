@@ -15,7 +15,12 @@ class MainWindow : JFrame("PicKit2 v$appVersion - $osName") {
     companion object {
         lateinit var container: Container
         var buttonPressed: JButton? = null
-        val command = arrayOfNulls<String>(3)
+
+        val command = if (osName == "Windows") {
+            arrayOf<String>("cmd.exe", "/c", "")
+        } else {
+            arrayOf<String>("/bin/bash", "-c", "")
+        }
 
         val logArea = JTextArea("Welcome to Pickit2 Programmer!\nPlease wait while checking your connected PIC...\n").apply {
             isEditable = false
@@ -211,8 +216,6 @@ class MainWindow : JFrame("PicKit2 v$appVersion - $osName") {
     }
 
     private fun handleCheckPicVersion() {
-        command[0] = "/bin/bash"
-        command[1] = "-c"
         command[2] = "pk2cmd -?v"
         progressBar.value = 0
         logArea.append("Checking PicKit2 Version...\n")
@@ -220,53 +223,42 @@ class MainWindow : JFrame("PicKit2 v$appVersion - $osName") {
     }
 
     private fun handleCheckPicConnected() {
-        buttonCheckPicConnected.isEnabled = false
-        command[0] = "/bin/bash"
-        command[1] = "-c"
         command[2] = "pk2cmd -P -JN"
         progressBar.value = 0
-        logArea.append("Searching for your PIC on board...\n")
+        buttonCheckPicConnected.isEnabled = false
         buttonPressed = buttonCheckPicConnected
+        logArea.append("Searching for your PIC on board...\n")
         Operations().execute()
     }
 
     private fun handleWriteHex() {
-        buttonWrite.isEnabled = false
-        command[0] = "/bin/bash"
-        command[1] = "-c"
         command[2] = "pk2cmd -P -M -JN -F$hexLocation"
         progressBar.value = 0
+        buttonWrite.isEnabled = false
         buttonPressed = buttonWrite
         logArea.append("Writing HEX on PIC...\n")
         Operations().execute()
     }
 
     private fun handleRunHex() {
-        command[0] = "/bin/bash"
-        command[1] = "-c"
         command[2] = "pk2cmd -P -JN -R -T"
         progressBar.value = 0
-        logArea.append("Running HEX...\n")
-        buttonPressed = buttonStop
-        Operations().execute()
         buttonRun.isEnabled = false
+        buttonPressed = buttonStop
+        logArea.append("Running HEX...\n")
+        Operations().execute()
     }
 
     private fun handleStopHex() {
-        command[0] = "/bin/bash"
-        command[1] = "-c"
         command[2] = "pk2cmd -P -JN -R"
         progressBar.value = 0
+        buttonStop.isEnabled = false
         buttonPressed = buttonRun
         Operations().execute()
-        buttonStop.isEnabled = false
     }
 
     private fun handleSErase() {
-        command[0] = "/bin/bash"
-        command[1] = "-c"
         command[2] = "pk2cmd -P -JN -E"
-        progressBar.value = 0
         val answer = JOptionPane.showConfirmDialog(
             null,
             """
@@ -276,6 +268,7 @@ class MainWindow : JFrame("PicKit2 v$appVersion - $osName") {
             "Warning",
             JOptionPane.YES_NO_OPTION
         )
+        progressBar.value = 0
         if (answer == JFileChooser.APPROVE_OPTION) {
             buttonErase.isEnabled = false
             buttonPressed = buttonErase
@@ -287,11 +280,9 @@ class MainWindow : JFrame("PicKit2 v$appVersion - $osName") {
     }
 
     private fun handleSTestHex() {
-        buttonTest.isEnabled = false
-        command[0] = "/bin/bash"
-        command[1] = "-c"
         command[2] = "pk2cmd -P -Y -JN -F$hexLocation"
         progressBar.value = 0
+        buttonTest.isEnabled = false
         buttonPressed = buttonTest
         logArea.append("Testing HEX integrity...\nThis might take a while\n")
         Operations().execute()
