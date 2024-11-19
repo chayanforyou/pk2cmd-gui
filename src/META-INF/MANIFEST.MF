@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Main-Class: Main
 Built-By: chayanforyou
 Implementation-Title: pk2cmd-gui
-Implementation-Version: 2.1
+Implementation-Version: 3.0
 Implementation-Vendor: CruxLab
 Implementation-URL: https://github.com/chayanforyou
 Created-By: Chayan Mistry (chayanmistrry@gmail.com)
